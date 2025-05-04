@@ -62,7 +62,7 @@ PWA (プログレッシブウェブアプリ) 化用の画像は、マニフェ�
 
 ## 作成方法
 
-[画像作成用XDファイルはこちら](../resources/icon-template.xd)
+[画像作成用XDファイルはこちら](../resources/xd/icon-template.xd)
 
 ### opg画像
 

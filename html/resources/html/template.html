@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+    <title>ページタイトル | サイト名</title>
+    
+    <meta name="description" content="このページの内容を簡潔に説明。120文字以内推奨。">
+    <meta name="keywords" content="キーワード1, キーワード2, キーワード3">
+    <meta name="author" content="運営会社・担当者名">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://example.com/page/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="ページタイトル | サイト名">
+    <meta property="og:description" content="SNSシェア用のページ説明文。SEO descriptionと近い内容でOK。">
+    <meta property="og:url" content="https://example.com/">
+    <meta property="og:site_name" content="サイト名">
+    <meta property="og:image" content="https://example.com/assets/ogp.jpg">
+    <meta property="og:locale" content="ja_JP">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@アカウント名">
+    <meta name="twitter:title" content="ページタイトル | サイト名">
+    <meta name="twitter:description" content="Twitterシェア用ページ説明。">
+    <meta name="twitter:image" content="https://example.com/assets/ogp.jpg">
+
+    <link rel="icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <link rel="stylesheet" href="/styles/style.css">
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "会社名",
+        "url": "https://example.com/",
+        "logo": "https://example.com/assets/logo.png",
+        "sameAs": [
+          "https://www.facebook.com/yourcompany",
+          "https://twitter.com/yourcompany",
+          "https://www.instagram.com/yourcompany/"
+        ]
+      }
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX');
+    </script>
+  </head>
+
+  <body class="theme--light">
+    <div class="app">
+      <div class="app__container">
+        <header class="header"></header>
+        <main id="main-content" class="main"></main>
+        <aside class="aside" aria-label="補足情報"></aside>
+        <footer class="footer"></footer>
+        
+        <div class="fixedButtons" aria-hidden="true"></div>
+        <div class="mask" aria-hidden="true"></div>
+
+        <div class="drawer" role="dialog" aria-hidden="true" aria-modal="true"></div>
+        <div class="dialog" role="dialog" aria-hidden="true" aria-modal="true"></div>
+        <div class="alert" role="alert" hidden></div>
+      </div>
+    </div>
+    <script src="" defer></script>
+  </body>
+</html>

@@ -1,5 +1,7 @@
 # HTMLコーディングガイドライン
 
+![WIP](https://img.shields.io/badge/status-WIP-yellow)
+
 このドキュメントは、HTMLの記述ルールを整理し、プロジェクト間でのブレをなくすためのリファレンスです。SCSSガイドラインとセットで使用し、デザインシステムの基盤となるマークアップルールを定義します。
 
 ---
@@ -18,20 +20,83 @@
 ```html
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ページタイトル</title>
-</head>
-<body class="theme--light">
-  <div class="app">
-    <header class="header">...</header>
-    <main class="main">...</main>
-    <footer class="footer">...</footer>
-  </div>
-</body>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+    <title>ページタイトル | サイト名</title>
+    
+    <meta name="description" content="このページの内容を簡潔に説明。120文字以内推奨。">
+    <meta name="keywords" content="キーワード1, キーワード2, キーワード3">
+    <meta name="author" content="運営会社・担当者名">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://example.com/page/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="ページタイトル | サイト名">
+    <meta property="og:description" content="SNSシェア用のページ説明文。SEO descriptionと近い内容でOK。">
+    <meta property="og:url" content="https://example.com/">
+    <meta property="og:site_name" content="サイト名">
+    <meta property="og:image" content="https://example.com/assets/ogp.jpg">
+    <meta property="og:locale" content="ja_JP">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@アカウント名">
+    <meta name="twitter:title" content="ページタイトル | サイト名">
+    <meta name="twitter:description" content="Twitterシェア用ページ説明。">
+    <meta name="twitter:image" content="https://example.com/assets/ogp.jpg">
+
+    <link rel="icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <link rel="stylesheet" href="/styles/style.css">
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "会社名",
+        "url": "https://example.com/",
+        "logo": "https://example.com/assets/logo.png",
+        "sameAs": [
+          "https://www.facebook.com/yourcompany",
+          "https://twitter.com/yourcompany",
+          "https://www.instagram.com/yourcompany/"
+        ]
+      }
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX');
+    </script>
+  </head>
+
+  <body class="theme--light">
+    <div class="app">
+      <div class="app__container">
+        <header class="header"></header>
+        <main id="main-content" class="main"></main>
+        <aside class="aside" aria-label="補足情報"></aside>
+        <footer class="footer"></footer>
+        
+        <div class="fixedButtons" aria-hidden="true"></div>
+        <div class="mask" aria-hidden="true"></div>
+
+        <div class="drawer" role="dialog" aria-hidden="true" aria-modal="true"></div>
+        <div class="dialog" role="dialog" aria-hidden="true" aria-modal="true"></div>
+        <div class="alert" role="alert" hidden></div>
+      </div>
+    </div>
+    <script src="" defer></script>
+  </body>
 </html>
 ```
+
+[htmlファイルはこちら](../resources/html/template.html)
 
 ---
 
@@ -102,13 +167,34 @@ id → class → data-* → aria-* → role → name → type → value → requ
 
 ---
 
-## 7. コメントの書き方
+## 7. コメントの書き方（開発メモ・設計意図の共有）
 
-開発用のメモは `<!-- TODO: -->` のように明示的に記述。
+開発用のメモは `<!-- TODO: -->` のように明示的に記述します。
+以下に、よく使われるタグとその用途をまとめます。コードの近くに簡潔に記述することで、保守性・可読性を高めることができます。
+
+### コメントタグ一覧
+
+| タグ           | 用途                           | 内容例                                                   |
+|----------------|--------------------------------|----------------------------------------------------------|
+| `TODO:`        | 実装予定                       | まだ作っていない部分・後回しにしている実装               |
+| `FIXME:`       | 修正が必要                     | 現状バグっている・非対応になっている箇所                 |
+| `NOTE:`        | 補足情報・設計意図             | 意図的にこうしている・例外対応の理由                     |
+| `HACK:`        | やむを得ない仮対応             | 理想ではないが、暫定的に対応している                     |
+| `REVIEW:`      | レビュー対象                   | 設計やスタイルが不安な箇所（他の人に意見をもらいたい）   |
+| `OPTIMIZE:`    | パフォーマンス改善余地         | 効率の悪い処理・無駄な指定があるかもしれない箇所         |
+| `DEPRECATED:`  | 廃止予定のスタイル             | 将来的に削除・変更される見込みのあるスタイル             |
+| `BUG:`         | 明確なバグ                     | 実際にバグ報告があった・不具合が再現している              |
+| `IMPORTANT:`   | 変更に注意が必要な重要箇所     | 依存関係が多く、変更が広範囲に影響する箇所               |
+| `WARNING:`     | 副作用・注意が必要なスタイル   | デバイスやブラウザによって挙動が変わる等                 |
+
+### コメント記述の例（html）
 
 ```html
-<!-- TODO: このエリアはAPI連携後に表示される -->
-<!-- NOTE: セクションごとに見出しが必要 -->
+<!-- TODO: ヘッダーのSPレイアウトに対応する -->
+<!-- FIXME: iOS Safariでpaddingが無視されるバグあり -->
+<!-- NOTE: このマージンはデザイン確認用に一時的に大きめに設定 -->
+<!-- HACK: gridでは崩れるためflexで強引に揃えている -->
+<!-- REVIEW: justify-contentをspace-betweenにしてよいか再確認 -->
 ```
 
 ---
