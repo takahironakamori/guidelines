@@ -1,5 +1,7 @@
 # SCSSコーディングガイドライン
 
+![WIP](https://img.shields.io/badge/status-WIP-yellow)
+
 このドキュメントは、私自身のSCSSコーディングルールを整理し、プロジェクト間でのブレをなくすためのリファレンスとして作成したものです。
 
 ---

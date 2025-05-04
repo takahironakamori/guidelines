@@ -1,5 +1,7 @@
 # ファビコン画像とogp画像の作成方法と設置方法
 
+![WIP](https://img.shields.io/badge/status-WIP-yellow)
+
 ## 作る必要がある画像
 
 最低限必要な画像は、以下の4つです。
