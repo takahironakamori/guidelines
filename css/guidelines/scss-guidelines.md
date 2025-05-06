@@ -424,6 +424,123 @@
   transition: all 0.3s ease;
 }
 ```
+---
+
+## SCSS変数の命名規則
+
+Design Token を定義するための SCSS 変数は、CSS変数と対応する形で命名します。
+
+### 命名構造
+$[component]--[variation]--[state]--[property]
+
+#### 例
+$button--primary--focus--background-color: #0056b3;
+
+→ CSSでは以下のように出力される：
+--button--primary--focus--background-color: #{$button--primary--focus--background-color};
+
+### 命名の優先順
+- コンポーネント名（button, form, etc）
+- バリエーション（primary, secondary, etc）
+- 状態（hover, focus, active, disabled）
+- プロパティ（background-color, border-color, opacity など）
+
+### 注意
+- 意味と状態の順序は逆にしない（❌ `$button--background-color--focus`）
+- 省略語は CSS と同様に統一されたものだけを使う（例：`m`, `l`, `xl`など）
+
+---
+
+## 変数生成ルール（Design Token 自動生成用）
+
+このプロジェクトでは、変数命名ルールが体系化されているため、ChatGPTなどのAIツールを使って以下のような依頼を行うことで、機械的にCSS変数やSCSSスタイルを自動生成できます。
+
+### 🔠 命名構造
+
+```
+--[component]--[pattern]--[style]--[intent]--[state]--[property]
+```
+
+- `component`（必須）  
+  対象となるUIコンポーネント名（例：`button`, `checkbox`）
+
+- `pattern`（任意）  
+  特定の意味を持たせず、デザインの違いだけを区別するためのバリエーション（例：`A01`, `B04`）
+
+- `style`（任意）  
+  コンポーネントの見た目スタイル（例：`fill`, `outline`, `ghost`）
+
+- `intent`（任意）  
+  ボタンの役割や文脈を表すセマンティックなラベル（例：`primary`, `secondary`, `positive`, `notice`, `accent`）
+
+- `state`（任意）  
+  UIの状態（例：`hover`, `focus`, `active`, `disabled`）
+
+- `property`（必須）  
+  スタイルのプロパティ名（例：`color`, `background-color`, `border-color`, `opacity`）
+
+> 任意項目は存在しない場合、省略されますが、順序は崩さずに詰めること。
+
+---
+
+### 🧾 命名例
+
+| 状況 | 変数名例 |
+|------|----------|
+| 通常の primary ボタンの背景色 | `--button--primary--background-color` |
+| outline スタイルの hover 状態の border 色 | `--button--outline--hover--border-color` |
+| positive intent + active 状態の color | `--button--positive--active--color` |
+| style + intent + 状態がすべてある場合 | `--button--outline--secondary--focus--background-color` |
+
+---
+
+### 🤖 自動生成用途での使用例（ChatGPTなど）
+
+以下のように依頼すれば、SCSS構文付きで自動生成できます：
+
+```text
+button コンポーネントの
+outline スタイルにおいて、
+intent は primary, secondary、
+state は hover, focus, active、
+プロパティは color, background-color, border-color。
+それぞれの組み合わせで、
+
+1. CSS変数（.theme--light / .theme--dark に分けて）
+2. SCSSのスタイル定義（.button--outline--[intent]）
+
+を出力してください。
+```
+
+生成例：
+
+1. CSS変数定義（テーマ別）
+
+```scss
+.theme--light {
+  --button--outline--primary--hover--color: var(--color--blue-700);
+  ...
+}
+
+.theme--dark {
+  --button--outline--primary--hover--color: var(--color--blue-400);
+  ...
+}
+```
+
+2. SCSSスタイル定義
+
+```scss
+.button--outline--primary {
+  &:hover {
+    color: var(--button--outline--primary--hover--color);
+    ...
+  }
+  &:focus { ... }
+  &:active { ... }
+}
+```
+
 
 ---
 
