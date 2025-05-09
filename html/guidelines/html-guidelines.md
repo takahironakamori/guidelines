@@ -259,6 +259,20 @@ id → class → data-* → aria-* → role → name → type → value → requ
 </div>
 ```
 
+### 例外 ： Headless UI 関連（例：checkbox）
+```html
+<div class="checkbox-field">
+  <div class="checkbox-field__container">
+    <div class="checkbox">
+      <div class="checkbox__box">
+        <svg class="checkbox__icon"></svg>
+      </div>
+    </div>
+    <label class="checkbox-field__label">ブラウザに保存する</label>
+  </div>
+</div>
+```
+
 
 ---
 
