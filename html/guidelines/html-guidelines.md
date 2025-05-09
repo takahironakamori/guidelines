@@ -225,15 +225,40 @@ id → class → data-* → aria-* → role → name → type → value → requ
 <input id="email" type="email" class="form__input" required>
 ```
 
-### カード
+### コンポーネント内でヘッダー、フッターがあるもの（例：カード）
 
 ```html
 <article class="card">
-  <div class="card__header">...</div>
+  <header class="card__header">...</header>
   <div class="card__body">...</div>
   <footer class="card__footer">...</footer>
 </article>
 ```
+
+### 埋め込む系のコンポーネントの場合
+
+```html
+<div class="xxx">
+  <div class="xxx__container">
+    <div class="xxx__embed">
+      ここに埋め込みコンテンツが入ります。
+    </div>
+  </div>
+</div>
+```
+
+### 普通のコンポーネントの場合
+
+```html
+<div class="xxx">
+  <div class="xxx__container">
+    <div class="xxx__content">
+      ここにコンテンツが入ります。
+    </div>
+  </div>
+</div>
+```
+
 
 ---
 
