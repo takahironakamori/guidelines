@@ -12,6 +12,10 @@
 - **再利用性**と**アクセシビリティ**を優先します。
 - SCSSのBEM命名規則と整合性をとります。
 - JavaScriptとの連携やテストを見据えた構造にします。
+- コンポーネントの構造は「primitive（基本UI部品）」と「semantic（文脈を持つ構造）」で分けて設計します。
+  - primitive: 小さな部品（例：button, input, icon など）
+  - semantic: 意味や役割を持つUI構成（例：card, header, tabs など）
+  - この分類により、マークアップの一貫性・再利用性を高めることを目的とします。SCSSの構造やコンポーネントディレクトリとも整合性を取ることが重要です。
 
 ---
 
@@ -229,11 +233,56 @@ id → class → data-* → aria-* → role → name → type → value → requ
 
 ```html
 <article class="card">
-  <header class="card__header">...</header>
-  <div class="card__body">...</div>
-  <footer class="card__footer">...</footer>
+  <div class="card__container">
+    <div class="card__thumbnail">
+      <img src="/img/sample.jpg" alt="..." class="image__img" />
+    </div>
+    <div class="card__main">
+      <header class="card__header">
+        <h2 class="card__title">サービス名</h2>
+      </header>
+      <div class="card__content">
+        <p>説明文...</p>
+      </div>
+      <footer class="card__footer">
+        <a href="#" class="button button--primary">詳しく見る</a>
+      </footer>
+    </div>
+  </div>
 </article>
 ```
+
+### card__content 内でさらに2段組にしたい場合
+
+```html
+<article class="card">
+  <div class="card__container">
+    <div class="card__thumbnail">
+      <img src="/img/sample.jpg" alt="..." class="card__thumbnail__img" />
+    </div>
+    <div class="card__main">
+      <header class="card__header">
+        <h2 class="card__title">サービス名</h2>
+      </header>
+      <div class="card__content">
+        <div class="card__content__main"></div>
+        <div class="card__content__aside"></div>
+      </div>
+      <footer class="card__footer">
+        <a href="#" class="button button--primary">詳しく見る</a>
+      </footer>
+    </div>
+  </div>
+</article>
+```
+
+#### 2カラム・複数領域を作るときの命名ルール（カード内など）
+
+- 意味があるとき：`__header`, `__main`, `__aside`, `__meta`
+  - `__header`：領域内の導入部分・見出し要素に使用（`<h3>`やラベルなど）
+  - `__main`：そのスコープでの主たる情報
+  - `__aside`：補足的情報（画像、タグ、時刻など）
+  - `__meta`：属性的な情報（ステータス、ラベル、作成者など）
 
 ### 埋め込む系のコンポーネントの場合
 

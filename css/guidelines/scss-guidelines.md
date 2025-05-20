@@ -289,6 +289,51 @@
           └── _z-index.scss     ... z-index に関する値を指定する scss。    
 ```
 
+### コンポーネント分類のルール
+
+本プロジェクトでは、UIコンポーネントを以下の2種類に分類して管理します：
+
+#### 📋 現在の分類一覧（随時追加予定）
+
+**Primitive Components（再利用単位）**
+
+- paragraph, heading, blockquote, date, label
+- image, video, map
+- table, list, ordered list, definition list
+- button, icon button, link, paging
+- input, textarea, radio button, checkbox, switch
+- combobox, listbox
+- divider, mask
+
+**Semantic Components（文脈・構造単位）**
+
+- header, footer, breadcrumb
+- card, article
+- carousel, banner
+- form set, disclosure (accordion), tabs, dialog, dropdown, popover
+- entry list, history list (date list), navigation, anchor links
+- drawer, action bar, alert, badge, toast
+- loader circle, loading bar, calendar
+
+
+#### 🧱 Primitive Component（プリミティブ）
+
+- ボタン、テキスト、入力欄などの最小単位の再利用部品
+- デザインの一貫性確保と、Design Tokenによるスタイル統一が目的
+- 単体でも意味が明確で、幅広く再利用される
+
+#### 🧩 Semantic Component（セマンティック）
+
+- ページの文脈や構造を担うコンポーネント
+- 複数のprimitiveを組み合わせて構成されることが多い
+- データや状態の文脈、UX要素を含む
+
+> 例：
+> - primitive: `button`, `input`, `label`, `icon`, `checkbox`
+> - semantic: `header`, `form-set`, `card`, `alert`, `tabs`, `dialog`
+
+SCSSファイルも `components/primitive` と `components/semantic` に分けて格納します。
+
 ---
 
 ## スタイルの設定
@@ -649,3 +694,26 @@ state は hover, focus, active、
 // HACK: gridでは崩れるためflexで強引に揃えている
 // REVIEW: justify-contentをspace-betweenにしてよいか再確認
 ```
+
+---
+
+### コンテナ系コンポーネントの余白設計
+
+- `.header`, `.card`, `.section` などの「枠組みコンポーネント」には、**上下の余白は `padding` で持たせる**
+- 内部の要素（.logo, .titleなど）は、**上方向の `margin-top` のみで余白を持つ**
+- これにより、余白の責任を分離し、再利用時のスタイル破綻や余白の重複を防ぐ
+
+#### 例：
+
+```scss
+.card {
+  padding-block: var(--space--l);
+
+  > *:first-child {
+    margin-top: 0;
+  }
+}
+
+.card__title {
+  margin-top: var(--space--m);
+}
