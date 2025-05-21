@@ -257,8 +257,8 @@ id → class → data-* → aria-* → role → name → type → value → requ
 ```html
 <article class="card">
   <div class="card__container">
-    <div class="card__thumbnail">
-      <img src="/img/sample.jpg" alt="..." class="card__thumbnail__img" />
+    <div class="card__media">
+      <img src="/img/sample.jpg" alt="..." class="card__media__img" />
     </div>
     <div class="card__main">
       <header class="card__header">
